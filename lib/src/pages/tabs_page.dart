@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:newsapp/src/pages/pages.dart';
 import 'package:provider/provider.dart';
 
 
@@ -43,11 +43,11 @@ class _Paginas extends StatelessWidget {
     final navegacionModel = Provider.of<_NavegacioModel>(context);
 
     return PageView(
-      controller:navegacionModel.pageController,
+      controller: navegacionModel.pageController,
       physics: const NeverScrollableScrollPhysics(),
       children: <Widget>[
-        Container(color: Colors.red),
-        Container(color: Colors.green),
+        Tab1Page(),
+        Tab2Page()
       ],
     );
   }
@@ -56,7 +56,7 @@ class _Paginas extends StatelessWidget {
 class _NavegacioModel with ChangeNotifier{
   int _paginaActual = 0;
 
-  PageController _pageController = PageController();
+  PageController _pageController = new PageController();
 
 
   int get paginaActual => _paginaActual;
@@ -64,7 +64,7 @@ class _NavegacioModel with ChangeNotifier{
   set paginaActual(int valor) {
     _paginaActual = valor;
 
-    _pageController.animateToPage(valor,duration: const Duration(milliseconds: 250),curve: Curves.easeOut);
+    _pageController.animateToPage(valor,duration: const Duration(milliseconds: 250),curve: Curves.easeIn);
   }
 
   PageController get pageController => _pageController;
