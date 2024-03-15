@@ -32,6 +32,13 @@ class _Noticia extends StatelessWidget {
         _TarjetaTopBar(noticia: noticia, index: index),
         _TarjetaTitulo(noticia: noticia),
         _TarjetaImagen(noticia: noticia),
+        _TarjetaBody(noticia  : noticia),
+        const SizedBox(height: 10),
+        const Divider(),
+        _TarjetaBotones(noticia: noticia),
+        const SizedBox(height: 10),
+        const Divider(),
+
       ],
     );
   }
@@ -79,7 +86,56 @@ class _TarjetaImagen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: const Text('Hola mundin'),
+      child: (noticia.urlToImage!=null)
+        ? FadeInImage(
+        placeholder: const AssetImage('assets/img/giphy.gif'), 
+        image: NetworkImage(noticia.urlToImage)
+      )
+      : const Image(image: AssetImage('assets/img/no-image.png')),
+    );
+  }
+}
+
+class _TarjetaBody extends StatelessWidget {
+  final Article noticia;
+
+  const _TarjetaBody({required this.noticia});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Text((noticia.description!=null)?noticia.description : ''),
+    );
+  }
+}
+
+class _TarjetaBotones extends StatelessWidget {
+  final Article noticia;
+
+  const _TarjetaBotones({required this.noticia});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          RawMaterialButton(
+            onPressed: (){},
+            fillColor: myTheme.colorScheme.secondary,
+            shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            child: const Icon(Icons.star_border),
+          ),
+          const SizedBox(width: 10),
+          RawMaterialButton(
+            onPressed: (){},
+            fillColor: Colors.blue,
+            shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            child: const Icon(Icons.more),
+          )
+        ],
+      ),
     );
   }
 }
